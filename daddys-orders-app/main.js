@@ -1,15 +1,9 @@
 let salt = Math.floor(Math.random() * 1000000);
-// TODO replace with dynamic address
+// TODO: Replace with dynamic address from wallet
 const userAddress = "aleo1lx3g77tkhtjyv57qssnrz2paktw3fk607ct4c8jd8xcztqwm8vqq854h6z";
 const worker = new Worker("worker.js", { type: "module" });
-let lastDecryptedOrder = null; // gets filled in after decrypting
 
-// TODO remove this hardcoded just for testing
-lastDecryptedOrder = {
-  main: 4,
-  side: 3,
-  drink: 1,
-};
+let lastDecryptedOrder = null;
 
 const MAIN_OPTIONS = [
   "Steak Grilled Cheesy Burrito",
@@ -19,7 +13,6 @@ const MAIN_OPTIONS = [
   "Crunchwrap Supreme",
   "Doritos Gordita Crunch",
 ];
-
 const SIDE_OPTIONS = [
   "Regular Fries",
   "Chips & Cheese",
@@ -28,7 +21,6 @@ const SIDE_OPTIONS = [
   "Chili Cheese Fries",
   "Cinnamon Twists",
 ];
-
 const DRINK_OPTIONS = [
   "Mountain Dew Baja Blast",
   "Pepsi",
@@ -47,9 +39,31 @@ worker.onmessage = function (e) {
     return;
   }
 
+  if (action === "get_order") {
+    const txId = result;
+    console.log("🔍 TODO: fetch and decrypt tx:", txId);
+
+    // TODO manually provide decrypted record values for now
+    lastDecryptedOrder = {
+      main: 4,
+      side: 3,
+      drink: 1,
+    };
+
+    const readableOrder = {
+      main: MAIN_OPTIONS[lastDecryptedOrder.main],
+      side: SIDE_OPTIONS[lastDecryptedOrder.side],
+      drink: DRINK_OPTIONS[lastDecryptedOrder.drink],
+    };
+
+    const msg = `🧾 Daddy’s Order:\n\n🌯 Main: ${readableOrder.main}\n🍟 Side: ${readableOrder.side}\n🥤 Drink: ${readableOrder.drink}`;
+    document.getElementById("order-display").innerText = msg;
+    return;
+  }
+
   if (action === "decrypt_order_record") {
     const parsed = JSON.parse(result);
-    lastDecryptedOrder = parsed; // save it globally
+    lastDecryptedOrder = parsed;
 
     const readableOrder = {
       main: MAIN_OPTIONS[parsed.main],
@@ -60,13 +74,10 @@ worker.onmessage = function (e) {
     const msg = `🧾 Daddy’s Order:\n\n🌯 Main: ${readableOrder.main}\n🍟 Side: ${readableOrder.side}\n🥤 Drink: ${readableOrder.drink}`;
     console.log(msg);
     document.getElementById("order-display").innerText = msg;
-    alert(msg);
     return;
   }
 
-
   console.log(`✅ ${action} successful:`, result);
-  alert(`${action} result:\n` + JSON.stringify(result, null, 2));
 };
 
 window.getOrder = () => {
@@ -79,11 +90,6 @@ window.getOrder = () => {
   });
 };
 
-window.testDecrypt = () => {
-  worker.postMessage({ action: "decrypt_order_record" });
-};
-
-// TODO replace with actual numbers from decrypted record 
 window.obeyOrder = () => {
   if (!lastDecryptedOrder) {
     alert("No order to obey yet. Get your order first.");
@@ -104,7 +110,6 @@ window.obeyOrder = () => {
   });
 };
 
-
 document.querySelector("#app").innerHTML = `
   <div>
     <h1>DADDY'S ORDERS</h1>
@@ -117,18 +122,3 @@ document.querySelector("#app").innerHTML = `
     </p>
   </div>
 `;
-
-
-
-
-// TODO remove this - just testing
-if (lastDecryptedOrder) {
-  const readableOrder = {
-    main: MAIN_OPTIONS[lastDecryptedOrder.main],
-    side: SIDE_OPTIONS[lastDecryptedOrder.side],
-    drink: DRINK_OPTIONS[lastDecryptedOrder.drink],
-  };
-
-  const msg = `🧾 Daddy’s Order:\n\n🌯 Main: ${readableOrder.main}\n🍟 Side: ${readableOrder.side}\n🥤 Drink: ${readableOrder.drink}`;
-  document.getElementById("order-display").innerText = msg;
-}

@@ -85,6 +85,6 @@ onmessage = async function (e) {
     }
 
   } catch (err) {
-    postMessage({ success: false, action: error?.action || "unknown", error: err.message });
+postMessage({ success: false, action, error: err.message });
   }
 };
