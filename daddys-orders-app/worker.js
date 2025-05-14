@@ -83,7 +83,21 @@ onmessage = async function (e) {
         ]
       );
       postMessage({ success: true, action, result });
-    }    
+    } else if (action === "decrypt_order_record") {
+  const { recordCiphertext, tpk } = payload;
+
+  try {
+    const record = AleoRecord.fromString(recordCiphertext);
+    const decrypted = record.decrypt(
+      ViewKey.from_string(import.meta.env.VITE_VIEW_KEY),
+      Group.fromString(tpk)
+    );
+    postMessage({ success: true, action, result: decrypted.toString() });
+  } catch (err) {
+    console.error("❌ Decryption failed:", err.message);
+    postMessage({ success: false, action, error: err.message });
+  }
+}  
 
   } catch (err) {
     postMessage({ success: false, action, error: err.message });

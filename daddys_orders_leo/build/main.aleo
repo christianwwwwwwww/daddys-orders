@@ -1,4 +1,4 @@
-program daddys_orders.aleo;
+program daddys_orders_v1.aleo;
 
 record Order:
     owner as address.private;

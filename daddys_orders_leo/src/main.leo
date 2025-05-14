@@ -1,4 +1,4 @@
-program daddys_orders.aleo {
+program daddys_orders_v1.aleo {
 
     record Order {
         owner: address,
@@ -31,9 +31,9 @@ program daddys_orders.aleo {
         let combined: field = (user_address as field) + (salt as field);
         let seed: u128 = BHP256::hash_to_u128(combined);
 
-        let expected_main: u8 = (seed % 3u128) as u8;
-        let expected_side: u8 = ((seed / 3u128) % 3u128) as u8;
-        let expected_drink: u8 = ((seed / 9u128) % 3u128) as u8;
+        let expected_main: u8 = (seed % 6u128) as u8;
+        let expected_side: u8 = ((seed / 3u128) % 6u128) as u8;
+        let expected_drink: u8 = ((seed / 9u128) % 6u128) as u8;
 
         assert(main == expected_main);
         assert(side == expected_side);
