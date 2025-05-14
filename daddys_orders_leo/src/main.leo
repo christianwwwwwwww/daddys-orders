@@ -1,17 +1,25 @@
 program daddys_orders.aleo {
 
-    transition get_order(
-        public user_address: address,
-        public salt: u64
-    ) -> (u8, u8, u8) {
+    record Order {
+        owner: address,
+        main: u8,
+        side: u8,
+        drink: u8,
+    }
+
+    transition get_order(public user_address: address, public salt: u64) -> Order {
         let combined: field = (user_address as field) + (salt as field);
         let seed: u128 = BHP256::hash_to_u128(combined);
-        let main: u8 = (seed % 3u128) as u8;
-        let side: u8 = ((seed / 3u128) % 3u128) as u8;
-        let drink: u8 = ((seed / 9u128) % 3u128) as u8;
+        let main: u8 = (seed % 6u128) as u8;
+        let side: u8 = ((seed / 3u128) % 6u128) as u8;
+        let drink: u8 = ((seed / 9u128) % 6u128) as u8;
 
-        return (main, side, drink);
-    }
+    return Order {
+        owner: self.caller,
+        main,
+        side,
+        drink,
+    };}
 
     transition obey_order(
         public user_address: address,

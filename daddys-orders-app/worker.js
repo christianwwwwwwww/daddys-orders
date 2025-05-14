@@ -5,6 +5,9 @@ import {
   AleoKeyProvider,
   AleoNetworkClient,
   NetworkRecordProvider,
+    Ciphertext,
+  Group,
+  ViewKey,
 } from "@provablehq/sdk";
 
 await initThreadPool();
@@ -12,6 +15,11 @@ await initThreadPool();
 const PROGRAM_ID = "daddys_orders.aleo";
 const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
 const NETWORK_URL = "https://api.explorer.provable.com/v1";
+const VIEW_KEY = import.meta.env.VITE_VIEW_KEY;
+
+const TEST_CIPHERTEXT = "ciphertext1qyqdyxztrc39wug9eyv4eg47yng69vjj9x8zuqn9y2v52fglap8t2zs07tjgu";
+const TPK = Group.fromString("3406015277192635326189218837570359500372801984085572846444365241634819524620group");
+
 
 // Executes a transition on-chain
 async function executeOnChain(programName, functionName, inputs, fee = 1.0) {
@@ -83,7 +91,23 @@ onmessage = async function (e) {
         ]
       );
       postMessage({ success: true, action, result });
-    }    
+          } else if (action === "test_decrypt") {
+      try {
+        const ciphertext = Ciphertext.fromString(TEST_CIPHERTEXT);
+        const plaintext = ciphertext.decryptWithTransitionInfo(
+          ViewKey.from_string(VIEW_KEY),
+          TPK,
+          PROGRAM_ID,
+          "get_order",
+          2
+        );
+        console.log("✅ Decrypted plaintext:", plaintext.toString());
+        postMessage({ success: true, action, result: plaintext.toString() });
+      } catch (err) {
+        console.error("❌ Decrypt failed:", err);
+        postMessage({ success: false, action, error: err.message });
+      }
+    }
 
   } catch (err) {
     postMessage({ success: false, action, error: err.message });

@@ -1,5 +1,11 @@
 program daddys_orders.aleo;
 
+record Order:
+    owner as address.private;
+    main as u8.private;
+    side as u8.private;
+    drink as u8.private;
+
 function get_order:
     input r0 as address.public;
     input r1 as u64.public;
@@ -7,17 +13,16 @@ function get_order:
     cast r1 into r3 as field;
     add r2 r3 into r4;
     hash.bhp256 r4 into r5 as u128;
-    rem r5 3u128 into r6;
+    rem r5 6u128 into r6;
     cast r6 into r7 as u8;
     div r5 3u128 into r8;
-    rem r8 3u128 into r9;
+    rem r8 6u128 into r9;
     cast r9 into r10 as u8;
     div r5 9u128 into r11;
-    rem r11 3u128 into r12;
+    rem r11 6u128 into r12;
     cast r12 into r13 as u8;
-    output r7 as u8.private;
-    output r10 as u8.private;
-    output r13 as u8.private;
+    cast self.caller r7 r10 r13 into r14 as Order.record;
+    output r14 as Order.record;
 
 function obey_order:
     input r0 as address.public;

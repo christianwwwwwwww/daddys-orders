@@ -27,6 +27,10 @@ window.getOrder = () => {
   });
 };
 
+window.testDecrypt = () => {
+  worker.postMessage({ action: "test_decrypt" });
+};
+
 window.obeyOrder = () => {
   // Replace these with real values from get_order output later
   const main = 0;
