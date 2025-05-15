@@ -44,11 +44,11 @@ worker.onmessage = function (e) {
     console.log("🔍 TODO: fetch and decrypt tx:", txId);
 
     // TODO manually provide decrypted record values for now
-    lastDecryptedOrder = {
-      main: 4,
-      side: 3,
-      drink: 1,
-    };
+    // lastDecryptedOrder = {
+    //   main: 4,
+    //   side: 3,
+    //   drink: 1,
+    // };
 
     const readableOrder = {
       main: MAIN_OPTIONS[lastDecryptedOrder.main],
@@ -61,21 +61,26 @@ worker.onmessage = function (e) {
     return;
   }
 
-  if (action === "decrypt_order_record") {
-    const parsed = JSON.parse(result);
-    lastDecryptedOrder = parsed;
+if (action === "decrypt_order_record") {
+  // TODO  Hardcoded test values - replace
+  lastDecryptedOrder = {
+    main: 4,
+    side: 3,
+    drink: 1,
+  };
 
-    const readableOrder = {
-      main: MAIN_OPTIONS[parsed.main],
-      side: SIDE_OPTIONS[parsed.side],
-      drink: DRINK_OPTIONS[parsed.drink],
-    };
+  const readableOrder = {
+    main: MAIN_OPTIONS[lastDecryptedOrder.main],
+    side: SIDE_OPTIONS[lastDecryptedOrder.side],
+    drink: DRINK_OPTIONS[lastDecryptedOrder.drink],
+  };
 
-    const msg = `🧾 Daddy’s Order:\n\n🌯 Main: ${readableOrder.main}\n🍟 Side: ${readableOrder.side}\n🥤 Drink: ${readableOrder.drink}`;
-    console.log(msg);
-    document.getElementById("order-display").innerText = msg;
-    return;
-  }
+  const msg = `🧾 Daddy’s Order:\n\n🌯 Main: ${readableOrder.main}\n🧀 Side: ${readableOrder.side}\n🥤 Drink: ${readableOrder.drink}`;
+  console.log(msg);
+  document.getElementById("order-display").innerText = msg;
+  return;
+}
+
 
   console.log(`✅ ${action} successful:`, result);
 };
@@ -253,3 +258,5 @@ if (lastDecryptedOrder) {
 //     </p>
 //   </div>
 // `;
+
+window.worker = worker;
