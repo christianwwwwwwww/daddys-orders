@@ -14,7 +14,7 @@ Check out the program on Aleo Mainnet with Provable's Explorer:
 
 ## How it works
 
-1. Click **Get Order**. A transaction is sent to the Aleo network to generate your randomized combo using private inputs. A private record is generated. Nobody needs to know about Daddy's orders except *you*, thanks to Aleo's zero-knowledge architecture.
+1. Click **Get Order**. A transaction is sent to the Aleo network to generate your randomized combo using private inputs. The randomness is generated on-chain using your private salt input and the hash.bhp256 function, producing verifiable randomness. A private record is generated. Nobody needs to know about Daddy's orders except *you*, thanks to Aleo's zero-knowledge architecture.
 2. The program receives a transaction ID and uses it to fetch the record ciphertext from the API, which is then decrypted using the Provable SDK's record decryption method. The decrypted order is then displayed.
 3. Go to Taco Bell and **order exactly what Daddy told you**.
 4. Upload your receipt to prove you obeyed.
@@ -46,7 +46,7 @@ Check out the program on Aleo Mainnet with Provable's Explorer:
 ## About the Project
 
 This project was created by **Christian**, **Brent**, and **Mia** as part of the **Provable Q2 Offsite Hackathon in Toronto**.  
-Our goal was to build something fun, irreverent, and actually private — using Aleo’s unique strengths in zero-knowledge computation.
+Our goal was to build something fun, irreverent, and actually private to demonstrate Aleo’s unique strengths in zero-knowledge computation.
 
 The Leo program is **fully deployed on Aleo Mainnet**.
 
