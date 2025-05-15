@@ -426,7 +426,7 @@ document.querySelector("#app").innerHTML = `
   <div id="bg">
     <div id="screen-text">
       <h1>DADDY'S ORDERS</h1>
-      <p id="order-display">Allow your loving daddy, Leo to make your choices. Upload a receipt proving you obeyed His orders to be rewarded.</p>
+      <p id="order-display">Allow your loving daddy Leo to make your choices. Upload a receipt proving you obeyed His orders to be rewarded.</p>
       <button onclick="window.getOrder()">Get Order</button>
       <button onclick="window.obeyOrder()">Prove Obedience</button>
     </div>
