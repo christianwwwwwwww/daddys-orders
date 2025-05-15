@@ -7,7 +7,7 @@ _Obey Daddy Leo._ He knows what's best for you.
 This is a totally private web application deployed on the **Aleo blockchain**, where Leo assigns you a randomized Taco Bell order — including a **main**, a **side**, and a **drink** — using zero-knowledge proofs.  
 You must follow the order exactly. No substitutions. No negotiation.
 
-Check out the Leo program on Provable's Explorer:  
+Check out the program on Aleo Mainnet with Provable's Explorer:  
 👉 [daddys_orders_v1.aleo](https://beta.explorer.provable.com/program/daddys_orders_v1.aleo)
 
 ---
