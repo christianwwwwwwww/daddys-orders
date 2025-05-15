@@ -24,7 +24,7 @@ You must follow the order exactly. No substitutions. No negotiation.
 - Only you (via your view key) can decrypt and view your order.
 - Receipt verification is done off-chain with OCR via Google Cloud Vision, but all assigned order logic and proof of obedience are handled on-chain via Aleo.
 
-## Built With
+## Built Withg
 
 - 🧠 Leo
 - 🌐 Provable's Aleo SDK using the create-leo-app Vanilla JavaScript template. Check it out: https://www.npmjs.com/package/create-leo-app
@@ -46,15 +46,6 @@ The Leo program is **fully deployed on Aleo Mainnet**.
 | **Implementation & Functionality** | Fully working app with on-chain order assignment and receipt OCR verification logic.
 | **Cryptography & Privacy Techniques** | Private record encryption, view key decryption, Aleo’s zk model used as intended.
 | **Originality & Potential Impact** | No other zk app makes you prove to a blockchain that you ordered Nachos Supreme.
-
----
-
-## Roadmap
-
-- [ ] Implement Obedience Tokens (ZK-based loyalty rewards)
-- [ ] Add support for other fast food chains
-- [ ] Open up public submissions of receipt data
-- [ ] Ship it to weird little corners of the internet
 
 ---
 
