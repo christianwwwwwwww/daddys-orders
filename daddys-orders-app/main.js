@@ -23,7 +23,7 @@ const loadingStyles = `
 `;
 document.head.insertAdjacentHTML('beforeend', loadingStyles);
 
-let salt = Math.floor(Math.random() * 1000000);
+let salt;
 // TODO: Replace with dynamic address from wallet
 const userAddress = "aleo1lx3g77tkhtjyv57qssnrz2paktw3fk607ct4c8jd8xcztqwm8vqq854h6z";
 const worker = new Worker("worker.js", { type: "module" });
@@ -205,6 +205,8 @@ worker.onmessage = function (e) {
 };
 
 window.getOrder = () => {
+  salt = Math.floor(Math.random() * 1000000);
+  console.log("Generated new salt:", salt);
   // Set loading state
   isLoading = true;
   
