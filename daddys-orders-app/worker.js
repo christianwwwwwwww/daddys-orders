@@ -44,6 +44,18 @@ async function executeOnChain(programName, functionName, inputs, fee = 1.0) {
   }
 }
 
+async function decryptRecord(record) {
+  const keyProvider = new AleoKeyProvider();
+  keyProvider.useCache(true);
+
+  const account = new Account({ privateKey: PRIVATE_KEY });
+
+  const recordCiphertext = RecordCiphertext.fromString(recordValue);
+  const recordPlaintext = recordCiphertext.decrypt(account.viewKey());
+
+  return recordPlaintext;
+}
+
 onmessage = async function (e) {
   const { action, payload } = e.data;
 
@@ -68,20 +80,16 @@ onmessage = async function (e) {
       postMessage({ success: true, action, result });
 
     } else if (action === "decrypt_order_record") {
-      const { Record, ViewKey, Group } = await import("@provablehq/sdk/mainnet.js");
+      const { Record } = payload;
 
-      // TODO remove harcoded values
-      const recordCiphertext = "record1qyqsqvfrvs7zjnrdfrrfqaerea2qns5q7rpxema6p7ftwd9ajm9cd6gxqvzx6ctfdc3sqqspqrd0vkvu4e0lujx2yvtsk4xysmsus0f72sm9lcmlgm6yr66dt3dsyprnd9jx2gcqqgqsp59mv5qfv6l5h32xfgut0kmgvkqtsjrmdk8xxfmmcja44mtjygcwq4j8y6twdv3sqqspqqmqut2phmzkkcytl30qlr768fz24u9723ydx9adk7geg4q73mwqmw7pa22tuehd07qy6vxdrt364cakp7xnhqnlspgc87xnr37nlzq3fddcq7";
-      const tpk = "5782834354161158878558847504544241862734057589606740307562865459981079972150group";
+      const recordValue = payload.record;
+      console.log("Decrypting record:", recordValue);
 
-      const record = Record.fromString(recordCiphertext);
-      const decrypted = record.decrypt(
-        ViewKey.from_string(VIEW_KEY),
-        Group.fromString(tpk)
-      );
+      const record = Record.fromString(recordValue);
+      const recordPlaintext = record.decrypt(account.viewKey());
 
       // Send the decrypted record as JSON string back to main
-      postMessage({ success: true, action, result: JSON.stringify(decrypted.toJSON()) });
+      postMessage({ success: true, action, result: JSON.stringify(recordPlaintext.toJSON()) });
     }
 
   } catch (err) {
