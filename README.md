@@ -64,3 +64,34 @@ The Leo program is **fully deployed on Aleo Mainnet**.
 🛑 No substitutions.  
 🧾 No receipts, no rewards.  
 🦀 Obedience can be fun.
+
+
+## Run Locally
+
+### 1. Start the Flask Backend
+
+```bash
+cd flask-server
+pip3 install -r requirements.txt
+gcloud auth application-default login
+python3 main.py
+```
+
+Make sure you're authenticated with Google Cloud to use the Vision API.  
+If you don’t have the Google CLI installed, follow instructions [here](https://cloud.google.com/sdk/docs/install).
+
+---
+
+### 2. Start the Frontend
+
+In a new terminal window:
+
+```bash
+cd daddys-orders-app
+npm install
+npm run build
+npm run dev
+```
+
+By default, the frontend runs at [http://localhost:5173](http://localhost:5173)  
+and expects the backend at [http://localhost:5000](http://localhost:5000).
