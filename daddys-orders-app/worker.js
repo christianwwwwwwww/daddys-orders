@@ -11,7 +11,6 @@ await initThreadPool();
 
 const PROGRAM_ID = "daddys_orders_v1.aleo";
 const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
-const VIEW_KEY = import.meta.env.VITE_VIEW_KEY;
 const NETWORK_URL = "https://api.explorer.provable.com/v1";
 
 // Executes a transition on-chain

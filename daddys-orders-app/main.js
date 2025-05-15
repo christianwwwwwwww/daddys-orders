@@ -24,8 +24,7 @@ const loadingStyles = `
 document.head.insertAdjacentHTML('beforeend', loadingStyles);
 
 let salt;
-// TODO: Replace with dynamic address from wallet
-const userAddress = "aleo1lx3g77tkhtjyv57qssnrz2paktw3fk607ct4c8jd8xcztqwm8vqq854h6z";
+const userAddress =  import.meta.env.VITE_USER_ADDRESS;
 const worker = new Worker("worker.js", { type: "module" });
 
 let lastDecryptedOrder = null;
