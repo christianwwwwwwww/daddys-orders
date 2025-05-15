@@ -10,7 +10,7 @@ You must follow the order exactly. No substitutions. No negotiation.
 ## How it works
 
 1. Click **Get Order**. A transaction is sent to the Aleo network to generate your randomized combo using private inputs. A private record is generated. Nobody needs to know about Daddy's orders except for *you* thanks to Aleo's zero-knowledge architecture.
-2. The program fetches the record from the API and decrypts it using the powerful Provable SDK. The decrypted order is then displayed.
+2. The program receives a transaction id and uses that to fetch the record ciphertext from the API, which is then and decrypted using the Provable SDK's record decryption method. The decrypted order is then displayed.
 3. Go to Taco Bell and **order exactly what Daddy told you**.
 4. Upload your receipt to prove you obeyed.
 5. The app extracts the items using OCR and checks if there's a **100% match** with your assigned order.
