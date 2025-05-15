@@ -1,4 +1,4 @@
-# Daddy's Orders 🍟🌯🥤
+# Daddy's Orders 🌯🦁🥤
 
 **Have you ever faced decision anxiety about what to eat? Don't you wish you could relinquish power, and submit to the loving will of a more powerful entity?**
 
