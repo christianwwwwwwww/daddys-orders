@@ -433,7 +433,8 @@ document.querySelector("#app").innerHTML = `
     </div>
     <div class="receipt-verification">
       <h2>Verify Receipt</h2>
-      <input type="file" id="receipt-upload" accept="image/*" />
+      <input type="file" id="receipt-upload" accept="image/*" style="display: none;" />
+      <label for="receipt-upload" class="custom-file-upload">Choose Receipt Image</label>
       <button onclick="window.uploadReceipt()">Verify Receipt</button>
       <p id="upload-status"></p>
       <div id="verification-result" class="verification-result"></div>
