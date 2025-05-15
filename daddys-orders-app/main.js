@@ -83,7 +83,7 @@ worker.onmessage = function (e) {
     let retryCount = 0;
     const maxRetries = 20; // About 5 minutes if we retry every 15 seconds
     const retryInterval = 15000; // 15 seconds
-    
+
     const checkTransaction = () => {
       if (retryCount >= maxRetries) {
         document.getElementById("order-display").innerHTML = `
@@ -291,6 +291,15 @@ window.checkExistingOrder = (txId) => {
     });
 };
 
+window.triggerReceiptUpload = () => {
+  const input = document.getElementById("receipt-upload");
+  input.onchange = () => {
+    window.uploadReceipt();
+  };
+  input.click();
+};
+
+
 window.obeyOrder = () => {
   if (!lastDecryptedOrder) {
     alert("No order to obey yet. Get your order first.");
@@ -430,17 +439,15 @@ document.querySelector("#app").innerHTML = `
       <h1>DADDY'S ORDERS</h1>
       <p id="order-display">Allow your loving daddy Leo to make your choices. Upload a receipt proving you obeyed His orders to be rewarded.</p>
       <button onclick="window.getOrder()">Get Order</button>
-      <button onclick="window.obeyOrder()">Prove Obedience</button>
-    </div>
-    <div class="receipt-verification">
-      <h2>Verify UberEats Receipt</h2>
-      <input type="file" id="receipt-upload" accept="image/*" />
-      <button onclick="window.uploadReceipt()">Verify Receipt</button>
+      <button onclick="window.triggerReceiptUpload()">Verify Receipt to Prove Obedience</button>
+      <input type="file" id="receipt-upload" accept="image/*" style="display: none;" />
       <p id="upload-status"></p>
       <div id="verification-result" class="verification-result"></div>
     </div>
   </div>
 `;
+
+
 
 // Restore any existing order display
 if (lastDecryptedOrder) {
